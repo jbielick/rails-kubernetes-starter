@@ -1,1 +1,1 @@
-# node-kube-demo
+# rails-kube-demo
