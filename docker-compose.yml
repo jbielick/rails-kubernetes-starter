@@ -1,0 +1,38 @@
+version: '2'
+services:
+  app:
+    build: .
+    command: bundle exec rails s -b 0.0.0.0
+    volumes:
+      - .:/home/app
+    volumes_from:
+      - bundle
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - RAILS_ENV=development
+      - BUNDLE_JOBS=5
+      - BUNDLE_RETRY=3
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes_from:
+      - db_data
+
+  bundle:
+    image: busybox
+    volumes:
+      - /bundle
+
+  db_data:
+    image: busybox
+    volumes:
+      - /var/lib/mysql
