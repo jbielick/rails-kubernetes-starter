@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    name: mysql
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: mysql
+    spec:
+      # -- optional section
+      # only use this if you've created a node pool
+      # inside your cluster named 'db-pool'
+      nodeSelector:
+        cloud.google.com/gke-nodepool: db-pool
+      # -- end optional section
+      containers:
+        - image: mysql:5.6
+          name: mysql
+          resources:
+            requests:
+              cpu: 800m
+            limits:
+              cpu: 800m
+          env:
+            - name: MYSQL_DATABASE
+              value: app_production
+            - name: MYSQL_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: mysql_user
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: mysql_password
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+              # This name must match the volumes.name below.
+            - name: mysql-db-data
+              mountPath: "/var/lib/mysql"
+      volumes:
+        - name: mysql-db-data
+          gcePersistentDisk:
+            # This disk must already exist.
+            pdName: db-data
+            fsType: ext4

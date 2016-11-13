@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web
+  namespace: default
+spec:
+  scaleRef:
+    kind: Deployment
+    name: web
+    subresource: scale
+  minReplicas: 4
+  maxReplicas: 20
+  cpuUtilization:
+    targetPercentage: 70
