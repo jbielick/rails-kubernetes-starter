@@ -1,0 +1,15 @@
+current directory: /Users/rizwanjaved/Documents/gcloud/rails-kube-demo/vendor/cache/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/ruby -r ./siteconf20190322-56373-ihqxn3.rb extconf.rb
+creating Makefile
+
+current directory: /Users/rizwanjaved/Documents/gcloud/rails-kube-demo/vendor/cache/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /Users/rizwanjaved/Documents/gcloud/rails-kube-demo/vendor/cache/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.bundle
+
+current directory: /Users/rizwanjaved/Documents/gcloud/rails-kube-demo/vendor/cache/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.bundle ./.gem.20190322-56373-8yw3z0

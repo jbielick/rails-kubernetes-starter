@@ -11,11 +11,11 @@ spec:
       labels:
         name: web
     spec:
-      nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
+#      nodeSelector:
+#        cloud.google.com/gke-nodepool: default-pool
       containers:
         - name: web
-          image: us.gcr.io/rails-kube-demo/app:v3
+          image: asia.gcr.io/brave-scanner-234908/rails-kube-demo_app
           ports:
             - containerPort: 3000
           livenessProbe:
