@@ -10,14 +10,6 @@ stage('Push image') {
 }
 
 stage('Deploy App') {
-    withKubeConfig([credentialsId: 'pace-config-updated',
-                    caCertificate: 'ca.cert',
-                    serverUrl: 'https://35.194.178.79',
-                    //contextName: '<context-name>',
-                    //clusterName: '<cluster-name>',
-                    namespace: 'default'
-                    ]) {
-      sh("kubectl apply -f kube/web-deployment.yml")
-    }
+  sh(“kubectl apply -f kube/web-deployment.yml”)
   }
 }
