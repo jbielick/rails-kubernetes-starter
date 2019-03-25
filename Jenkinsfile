@@ -8,4 +8,8 @@ stage('Push image') {
     app.push("latest")
   }
 }
+
+stage('Deploy App') {
+  sh(“kubectl apply -f kube/web-deployment.yml”)
+  }
 }
