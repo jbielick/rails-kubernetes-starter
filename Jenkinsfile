@@ -4,6 +4,14 @@ pipeline {
         stage('build') {
             steps {
                 sh 'npm --version'
+                //docker build -t app .
+            }
+        }
+        //deploying image to Container Registry...
+        stage('deploy image') {
+            steps {
+                //sh 'npm --version'
+                docker build -t app .
             }
         }
     }
