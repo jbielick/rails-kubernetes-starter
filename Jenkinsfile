@@ -10,7 +10,7 @@ stage('Push image') {
 }
 
 stage('Deploy App') {
-  //sh("kubectl apply -f ./kube/web-deployment.yml")
-  sh("kubectl get pods")
+  sh("kubectl apply -f ./kube/web-deployment.yml")
+  //sh("kubectl get pods")
   }
 }
