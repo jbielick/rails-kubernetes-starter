@@ -10,6 +10,6 @@ stage('Push image') {
 }
 
 stage('Deploy App') {
-  sh(“kubectl apply -f kube/web-deployment.yml”)
+  sh(“kubectl --namespace=production apply -f kube/web-deployment.yml”)
   }
 }
