@@ -5,7 +5,7 @@ metadata:
   labels:
     name: web
 spec:
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
