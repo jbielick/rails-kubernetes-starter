@@ -1,17 +1,30 @@
-version: '2'
+version: '3.5'
+
+volumes:
+  bundle:
+    driver: local
+  mysql:
+    driver: local
+
 services:
   app:
     build: .
-    command: bundle exec rails s -b 0.0.0.0
+    image: "my-app:1.0"
+    # so things like pry work
+    tty: true
+    stdin_open: true
+    command: bundle exec rails s -b 0.0.0.0 -p 3000
     volumes:
+      # bind-mount your current directory of code
       - .:/home/app
-    volumes_from:
-      - bundle
+      # attach a volume at /bundle to keep gems outside of the container image
+      - bundle:/bundle
     environment:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root
       - RAILS_ENV=development
-      - BUNDLE_JOBS=5
+      - BUNDLE_PATH=/bundle
+      - BUNDLE_JOBS=2
       - BUNDLE_RETRY=3
     ports:
       - "3000:3000"
@@ -24,15 +37,5 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     ports:
       - "3306:3306"
-    volumes_from:
-      - db_data
-
-  bundle:
-    image: busybox
     volumes:
-      - /bundle
-
-  db_data:
-    image: busybox
-    volumes:
-      - /var/lib/mysql
+      - mysql-data:/var/lib/mysql
