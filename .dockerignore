@@ -1,0 +1,9 @@
+log
+tmp
+node_modules
+vendor/bundle
+storage
+.kube
+Dockerfile
+public/assets
+public/packs
