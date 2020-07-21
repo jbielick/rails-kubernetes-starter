@@ -84,7 +84,7 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    puma (3.12.4)
+    puma (3.12.6)
     rack (2.2.2)
     rack-test (0.6.3)
       rack (>= 1.0)
