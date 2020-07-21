@@ -1,41 +1,55 @@
-version: '3.5'
+version: "3.5"
 
 volumes:
   bundle:
     driver: local
   mysql:
     driver: local
+  tmp:
+    driver: local
+  node-modules:
+    driver: local
 
 services:
   app:
-    build: .
+    build:
+      args:
+        BUNDLE_WITHOUT: "darwin"
+      context: .
     image: "my-app:1.0"
     # so things like pry work
     tty: true
     stdin_open: true
-    command: bundle exec rails s -b 0.0.0.0 -p 3000
     volumes:
-      # bind-mount your current directory of code
+      # bind-mount your working directory of code
       - .:/home/app
       # attach a volume at /bundle to keep gems outside of the container image
       - bundle:/bundle
+      # attach a volume at ./node_modules to keep node modules cached in a volume
+      - node-modules:/home/app/node_modules
+      # attach a volume at ./tmp to cache asset compilation, rails cache files
+      - tmp:/home/app/tmp
     environment:
+      - RAILS_ENV=development
+      - MYSQL_HOST=mysql
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root
-      - RAILS_ENV=development
       - BUNDLE_PATH=/bundle
       - BUNDLE_JOBS=2
       - BUNDLE_RETRY=3
     ports:
       - "3000:3000"
-    depends_on:
+    links:
       - mysql
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0.21
+    command:
+      - --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app_development
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql:/var/lib/mysql
